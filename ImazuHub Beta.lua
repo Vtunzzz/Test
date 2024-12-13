@@ -25,7 +25,7 @@ UICorner.Parent = ImageButton
 UIStroke.Parent = ImageButton
 
 local colors = {
-    Color3.fromRGB(255, 165, 0),
+    Color3.fromRGB(8, 0, 221),
 }
 local index = 1
 spawn(function()
