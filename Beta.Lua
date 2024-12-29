@@ -2,19 +2,16 @@
 local screenGui = Instance.new("ScreenGui")
 screenGui.Parent = game.Players.LocalPlayer.PlayerGui  -- Gán vào PlayerGui của người chơi
 
--- Tạo một Label để mở cửa sổ
-local openLabel = Instance.new("TextLabel")
-openLabel.Parent = screenGui
-openLabel.Size = UDim2.new(0, 200, 0, 50)  -- Kích thước của Label
-openLabel.Position = UDim2.new(0.5, -100, 0.2, 0)  -- Đặt vị trí của Label ở giữa màn hình, cao lên một chút
-openLabel.Text = "Nhấn để Mở Cửa Sổ"  -- Nội dung Label
-openLabel.TextColor3 = Color3.fromRGB(255, 255, 255)  -- Màu chữ trắng
-openLabel.TextSize = 24  -- Kích thước chữ
-openLabel.BackgroundColor3 = Color3.fromRGB(0, 0, 0)  -- Màu nền Label đen
-openLabel.TextAlign = Enum.TextAnchor.MiddleCenter  -- Canh giữa văn bản
-openLabel.BorderSizePixel = 0  -- Không có viền
+-- Tạo một ImageLabel để mở cửa sổ (thay vì TextLabel)
+local openLogo = Instance.new("ImageLabel")
+openLogo.Parent = screenGui
+openLogo.Size = UDim2.new(0, 200, 0, 200)  -- Kích thước của logo (điều chỉnh theo kích thước logo của bạn)
+openLogo.Position = UDim2.new(0.5, -100, 0.2, 0)  -- Đặt vị trí của logo ở giữa màn hình, cao lên một chút
+openLogo.Image = "rbxassetid://105698709124312"  -- Thay "YOUR_IMAGE_ID" bằng ID của hình ảnh mà bạn muốn sử dụng
+openLogo.BackgroundTransparency = 1  -- Không có nền
+openLogo.BorderSizePixel = 0  -- Không có viền
 
--- Tạo cửa sổ (Frame) để mở khi nhấn vào Label
+-- Tạo cửa sổ (Frame) để mở khi nhấn vào logo
 local window = Instance.new("Frame")
 window.Parent = screenGui
 window.Size = UDim2.new(0, 400, 0, 300)  -- Kích thước của cửa sổ
@@ -48,7 +45,7 @@ closeButton.MouseButton1Click:Connect(function()
     window.Visible = false  -- Ẩn cửa sổ
 end)
 
--- Thêm sự kiện để mở cửa sổ khi nhấn vào Label
-openLabel.MouseButton1Click:Connect(function()
-    window.Visible = true  -- Hiển thị cửa sổ khi nhấn vào Label
+-- Thêm sự kiện để mở cửa sổ khi nhấn vào logo
+openLogo.MouseButton1Click:Connect(function()
+    window.Visible = true  -- Hiển thị cửa sổ khi nhấn vào logo
 end)
