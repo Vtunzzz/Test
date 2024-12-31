@@ -44,9 +44,7 @@ local ToggleGun = Tabs.Setting:AddToggle("ToggleGun", {Title = "Gun", Default = 
         BringMobs = Value
     end)
     Options.ToggleBringMob:SetValue(true)
-     spawn(function()
-        while task.wait() do
-            pcall(function()
+     
   function Click()
     if not _G.FastAttack then
         local Module = require(game.Players.LocalPlayer.PlayerScripts.CombatFramework)
