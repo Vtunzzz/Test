@@ -1,79 +1,104 @@
-local ScreenGui = Instance.new("ScreenGui")
-local ImageButton = Instance.new("ImageButton")
-local ScreenGui = Instance.new("ScreenGui")
-local ImageButton = Instance.new("ImageButton")
-local UICorner = Instance.new("UICorner")
-local UIGradient = Instance.new("UIGradient")
-local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
+--Gui
+local screenGui = Instance.new("ScreenGui")
+local frame = Instance.new("Frame")
+local uiCorner = Instance.new("UICorner")
+local uiGradient = Instance.new("UIGradient")
 
+screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
-ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+frame.Parent = screenGui
+frame.Size = UDim2.new(0.6, 0, 1, 0) -- Tăng chiều rộng và chiều cao
+frame.Position = UDim2.new(0.25, 0, 0.25, 0) -- Căn giữa màn hình
+frame.BackgroundColor3 = Color3.fromRGB(25, 25, 25) -- Màu nền cơ bản
+frame.BorderColor3 = Color3.fromRGB(255, 255, 0) -- Viền màu vàng
+frame.BorderSizePixel = 2 -- Độ dày viền
 
-ImageButton.Parent = ScreenGui
-ImageButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-ImageButton.Position = UDim2.new(0.10615778, 0, 0.16217947, 0)
-ImageButton.Size = UDim2.new(0.0627121851, 0, 0.107579626, 0)
-ImageButton.Image = "nil"
+-- Thuộc tính ImageButton
+local imageButton = Instance.new("ImageButton")
+imageButton.Parent = screenGui
 
-UICorner.CornerRadius = UDim.new(0, 30)
-UICorner.Parent = ImageButton
+-- Đặt kích thước hình vuông
+imageButton.Size = UDim2.new(0, 30, 0, 30) -- Cả chiều rộng và chiều cao đều bằng nhau
+imageButton.Position = UDim2.new(0.05, 0, 0.2, 0) -- Vị trí nút
+imageButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255) -- Màu nền
+imageButton.Image = "rbxassetid://70734752670140" -- Thay ID hình ảnh của bạn
+imageButton.BorderSizePixel = 0 -- Không viền
 
-UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(244, 0, 0)), ColorSequenceKeypoint.new(0.32, Color3.fromRGB(146, 255, 251)), ColorSequenceKeypoint.new(0.65, Color3.fromRGB(180, 255, 255)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(96, 255, 231))}
-UIGradient.Parent = ImageButton
+-- Bo góc
+local uiCorner = Instance.new("UICorner")
+uiCorner.CornerRadius = UDim.new(1, 0) -- Bo tròn hoàn toàn
+uiCorner.Parent = imageButton
 
-UIAspectRatioConstraint.Parent = ImageButton
-UIAspectRatioConstraint.AspectRatio = 0.988
+-- Bo góc ImageButton
+uiCorner.CornerRadius = UDim.new(0, 15)
+uiCorner.Parent = imageButton
 
+-- Sự kiện khi nhấn ImageButton
+imageButton.MouseButton1Click:Connect(function()
+    frame.Visible = not frame.Visible -- Bật/tắt Frame
+end)
 
-local function HCEGY_fake_script()
-	local script = Instance.new('LocalScript', UIGradient)
+-- Hàm thêm tính năng kéo/thả
+local function enableDrag(guiObject)
+    local UIS = game:GetService('UserInputService')
+    local dragToggle = false
+    local dragStart = nil
+    local startPos = nil
 
-	local TweenService = game:GetService("TweenService")
-	local tweeninfo = TweenInfo.new(4, Enum.EasingStyle.Linear, Enum.EasingDirection.In, -1)
-	local tween = TweenService:Create(script.Parent, tweeninfo, {Rotation = 360})
-	tween:Play()
+    local function updateInput(input)
+        local delta = input.Position - dragStart
+        local newPosition = UDim2.new(
+            startPos.X.Scale, startPos.X.Offset + delta.X,
+            startPos.Y.Scale, startPos.Y.Offset + delta.Y
+        )
+        guiObject.Position = newPosition
+    end
+
+    guiObject.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            dragToggle = true
+            dragStart = input.Position
+            startPos = guiObject.Position
+            input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.End then
+                    dragToggle = false
+                end
+            end)
+        end
+    end)
+
+    UIS.InputChanged:Connect(function(input)
+        if dragToggle and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+            updateInput(input)
+        end
+    end)
 end
-coroutine.wrap(HCEGY_fake_script)()
-local function YTZCAJC_fake_script()
-	local script = Instance.new('LocalScript', ImageButton)
 
-	local UIS = game:GetService('UserInputService')
-	local frame = script.Parent
-	local dragToggle = nil
-	local dragSpeed = 0.25
-	local dragStart = nil
-	local startPos = nil
-	
-	local function updateInput(input)
-		local delta = input.Position - dragStart
-		local position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X,
-			startPos.Y.Scale, startPos.Y.Offset + delta.Y)
-		game:GetService('TweenService'):Create(frame, TweenInfo.new(dragSpeed), {Position = position}):Play()
-	end
-	
-	frame.InputBegan:Connect(function(input)
-		if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) then 
-			dragToggle = true
-			dragStart = input.Position
-			startPos = frame.Position
-			input.Changed:Connect(function()
-				if input.UserInputState == Enum.UserInputState.End then
-					dragToggle = false
-				end
-			end)
-		end
-	end)
-	
-	UIS.InputChanged:Connect(function(input)
-		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
-			if dragToggle then
-				updateInput(input)
-			end
-		end
-	end)
-	script.Parent.MouseButton1Click:Connect(function()
-		game:GetService("VirtualInputManager"):SendKeyEvent(true,Enum.KeyCode.End,false,game)
-	end)
-end
-coroutine.wrap(YTZCAJC_fake_script)()
+-- Kích hoạt kéo/thả cho ImageButton và Frame
+enableDrag(imageButton)
+enableDrag(frame)
+--Text
+-- Thuộc tính MainFrame
+-- Tạo mainFrame
+local mainFrame = Instance.new("Frame")
+mainFrame.Parent = frame
+mainFrame.Size = UDim2.new(0, 27, 0, 27) -- Kích thước là 27 pixel cả chiều rộng và chiều cao
+mainFrame.Position = UDim2.new(0, 10, 0, 10) 
+mainFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+mainFrame.BorderSizePixel = 0
+
+-- Tạo UICorner để bo góc cho mainFrame
+local uiCornerMainFrame = Instance.new("UICorner")
+uiCornerMainFrame.CornerRadius = UDim.new(0, 5) -- Bo góc 5 pixel
+uiCornerMainFrame.Parent = mainFrame
+
+-- Thêm TextLabel
+local textLabel = Instance.new("TextLabel")
+textLabel.Parent = mainFrame
+textLabel.Size = UDim2.new(1, 0, 1, 0) -- Bao phủ toàn bộ mainFrame
+textLabel.BackgroundTransparency = 1 -- Nền trong suốt
+textLabel.Text = "Main" -- Văn bản
+textLabel.TextColor3 = Color3.fromRGB(255, 255, 255) -- Màu chữ
+textLabel.TextScaled = false -- Không tự động chỉnh kích thước chữ
+textLabel.Font = Enum.Font.SourceSansBold -- Phông chữ
+textLabel.TextSize = 20 -- Kích thước chữ là 14 (có thể chỉnh tùy ý)Bold -- Phông chữ
