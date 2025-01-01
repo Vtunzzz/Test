@@ -1,64 +1,5 @@
-local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
-local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
-local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
---------------------------------------------------------------------------------------------------------------------------------------------
-local Window = Fluent:CreateWindow({
-    Title ="Imazu Hub ",
-    SubTitle = "by vtung",
-    TabWidth = 160,
-    Size = UDim2.fromOffset(450, 300),
-    Acrylic = true, -- The blur may be detectable, setting this to false disables blur entirely
-    Theme = "Darker",
-    MinimizeKey = Enum.KeyCode.End -- Used when theres no MinimizeKeybind
-})
-
-local Options = Fluent.Options
-
---------------------------------------------------------------------------------------------------------------------------------------------
-    repeat wait() until game.Players
-    repeat wait() until game.Players.LocalPlayer
-    repeat wait() until game.ReplicatedStorage
-    repeat wait() until game.ReplicatedStorage:FindFirstChild("Remotes");
-    repeat wait() until game.Players.LocalPlayer:FindFirstChild("PlayerGui");
-    repeat wait() until game.Players.LocalPlayer.PlayerGui:FindFirstChild("Main");
-    repeat wait() until game:GetService("Players")
-    repeat wait() until game:GetService("Players").LocalPlayer.Character:FindFirstChild("Energy")
-    
-    wait(0.1)
-    
-local Tabs = {
-    Main = Window:AddTab({ Title = "Main", Icon = "home" }),
-    Setting = Window:AddTab({ Title = "Setting", Icon = "settings" }),
-    Stats = Window:AddTab({ Title = "Stats", Icon = "plus-circle" }),
-    Player = Window:AddTab({ Title = "Player", Icon = "baby" }),
-    Teleport = Window:AddTab({ Title = "Teleport", Icon = "palmtree" }),
-    Fruit = Window:AddTab({ Title = "Devil Fruit", Icon = "cherry" }),
-    Raid = Window:AddTab({ Title = "Dungeon", Icon = "swords" }),
-    Race = Window:AddTab({ Title = "Race V4", Icon = "chevrons-right" }),
-    Shop = Window:AddTab({ Title = "Shop", Icon = "shopping-cart" }),
-	Misc = Window:AddTab({ Title = "Misc", Icon = "list-plus" }),
-}
-local Input = Tabs.Home:AddInput("Input", {
-        Title = "Job Id",
-        Default = "",
-        Placeholder = "",
-        Numeric = false, 
-        Finished = false,
-        Callback = function(SexGay)
-        VtungDzDaTai = SexGay
-        end
-    })
-Tabs.Home:AddButton({
-    Title = "Join Server",
-    Description = "Wait Join",
-    Callback = function()
-        game:GetService("TeleportService"):TeleportToPlaceInstance(game.placeId,VtungDzDaTai, game.Players.LocalPlayer)
-    end
-})
-
-
-
-
+local ScreenGui = Instance.new("ScreenGui")
+local ImageButton = Instance.new("ImageButton")
 local ScreenGui = Instance.new("ScreenGui")
 local ImageButton = Instance.new("ImageButton")
 local UICorner = Instance.new("UICorner")
@@ -73,7 +14,7 @@ ImageButton.Parent = ScreenGui
 ImageButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 ImageButton.Position = UDim2.new(0.10615778, 0, 0.16217947, 0)
 ImageButton.Size = UDim2.new(0.0627121851, 0, 0.107579626, 0)
-ImageButton.Image = "rbxassetid://70734752670140"
+ImageButton.Image = "nil"
 
 UICorner.CornerRadius = UDim.new(0, 30)
 UICorner.Parent = ImageButton
@@ -136,9 +77,3 @@ local function YTZCAJC_fake_script()
 	end)
 end
 coroutine.wrap(YTZCAJC_fake_script)()
-
-game.StarterGui:SetCore("SendNotification", {
-      Icon = "";
-      Title = "Imazu Hub", 
-      Text = "Complete !";
-})                                                                                              
